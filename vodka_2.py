@@ -19,7 +19,7 @@ class PartyNN(object):
     def __init__(self, learning_rate=0.1):
         # веса от входного слоя к скрытому
         # размер 2 на 3, потому что 2 нейрона в скрытом по 3 значения на каждый
-        self.weights_0_1 = np.random.normal(0.0, 2 ** -0.5, (2,3))
+        self.weights_0_1 = np.random.normal(0.0, 2 ** -0.5, (2, 3))
         # веса от скрытого слоя к выходному
         self.weights_1_2 = np.random.normal(0.0, 1, (1, 2))
         # создание вектора сигмоида, с расположением на нем значений
@@ -55,16 +55,19 @@ class PartyNN(object):
         # рассчет дельты весов
         weights_delta_layer_2 = error_layer_2 * gradient_layer_2
         # смена весов на выходной нейрон
-        self.weights_1_2 -= (np.dot(weights_delta_layer_2, outputs_1.reshape(1, len(outputs_1)))) * self.learning_rate
+        self.weights_1_2 -= (np.dot(weights_delta_layer_2,
+                                    outputs_1.reshape(1,
+                                                      len(outputs_1)))) * self.learning_rate
 
         error_layer_1 = np.array([actual_predict - expected_predict])
         gradient_layer_1 = actual_predict * (1 - actual_predict)
         weights_delta_layer_1 = error_layer_1 * gradient_layer_1
-        self.weights_0_1 -= np.dot(inputs.reshape(len(inputs), 1), weights_delta_layer_1).T * self.learning_rate
+        self.weights_0_1 -= np.dot(inputs.reshape(len(inputs), 1),
+                                   weights_delta_layer_1).T * self.learning_rate
 
 
 def MSE(y, Y):
-    return np.mean((y-Y)**2)
+    return np.mean((y - Y)**2)
 
 
 epochs = 6000
@@ -79,8 +82,12 @@ for e in range(epochs):
         network.train(np.array(input_stat), correct_predict)
         inputs_.append(np.array(input_stat))
         correct_predictions.append(np.array(correct_predict))
-    train_loss = MSE(network.predict(np.array(inputs_).T), np.array(correct_predictions))
-    sys.stdout.write("Progress: {}, Training loss: {}".format(str(100 * e/float(epochs))[:4], str(train_loss)[:5]))
+    train_loss = MSE(
+        network.predict(
+            np.array(inputs_).T),
+        np.array(correct_predictions))
+    sys.stdout.write("Progress: {}, Training loss: {}".format(
+        str(100 * e / float(epochs))[:4], str(train_loss)[:5]))
 
 for input_stat, correct_predict in train:
     print("For input: {} the prediction is: {}, expected: {}".format(

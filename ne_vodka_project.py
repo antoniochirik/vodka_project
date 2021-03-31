@@ -1,12 +1,13 @@
 import numpy as np
 
-vodka = 1.0
-rain = 0.0
-friend = 1.0
+
+vodka = 0.0
+rain = 1.0
+friend = 0.0
 
 
 def activation_fanction(x):
-    if x >= 0.5:
+    if x >= 0.6:
         return 1
     else:
         return 0
@@ -29,6 +30,7 @@ def predict(vodka, rain, friend):
 
     output = np.dot(weight_input_to_output, hidden_output)
     print("output: " + str(output))
+    
     return activation_fanction(output) == 1
 
 

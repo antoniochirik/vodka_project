@@ -1,5 +1,6 @@
 import numpy as np
 
+
 vodka = 0.0
 rain = 1.0
 friend = 0.0
@@ -22,13 +23,14 @@ def predict(vodka, rain, friend):
     weight_input_to_output = ([-1, 1])
 
     hidden_input = np.dot(weight_input_to_hidden, inputs)
-    print(str(hidden_input))
+    print("hidden_input: " + str(hidden_input))
 
     hidden_output = np.array([activation_fanction(x) for x in hidden_input])
-    print(str(hidden_output))
+    print('hidden_output: ' + str(hidden_output))
 
     output = np.dot(weight_input_to_output, hidden_output)
-    print(str(output))
+    print("output: " + str(output))
+    
     return activation_fanction(output) == 1
 
 
